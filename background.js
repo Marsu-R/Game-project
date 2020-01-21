@@ -85,5 +85,9 @@ class Background {
     for (let i = 0; i < this.movingImages.length; i++) {
       this.move(this.movingImages[i]);
     }
+    textSize(18);
+    text("Level:", 10, 25);
+    text("Score:", 10, 50);
+    rect(10, 60, 40, 40);
   }
 }
