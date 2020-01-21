@@ -10,6 +10,8 @@ function keyPressed() {
 class Game {
   constructor() {
     console.log("Game constructor");
+    // create empty array for the obstacles
+    this.obstacles = [];
   }
 
   init() {
@@ -18,7 +20,33 @@ class Game {
   }
 
   draw() {
+    // draw the background, obstacles and player
+    // draw the background
     this.background.draw();
+
+    // create a new obstacle every 2 seconds:
+    if (frameCount % 120 === 0) {
+      this.obstacles.push(new Obstacle());
+    }
+
+    // if the player doesn't collide with the obstacles, remove them from the obstacles array after they have left the canvas
+    this.obstacles = this.obstacles.filter(
+      function(obstacle) {
+        if (
+          !obstacle.collides(this.player) &&
+          obstacle.x + obstacle.width >= 0
+        ) {
+          return true;
+        }
+      }.bind(this)
+    );
+
+    // draw the obstacles
+    this.obstacles.forEach(function(obstacle) {
+      obstacle.draw();
+    });
+
+    // draw the player
     this.player.draw();
   }
 
