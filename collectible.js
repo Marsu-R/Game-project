@@ -1,8 +1,9 @@
 class Collectible {
   constructor() {
     // size of the item on canvas
-    this.width = 50;
-    this.height = 50;
+    this.score = 10;
+    this.width = 60;
+    this.height = 60;
 
     this.x = width;
     // place the items randomly across the y axis on the canvas; random() is a p5 function that accepts a range
@@ -10,41 +11,6 @@ class Collectible {
     // create counter for the items
     this.counter = 0;
     this.type = "carrot";
-  }
-
-  setup() {
-    let collectibleType;
-    let random = Math.random();
-    // console.log(random);
-    if (random < 0.5) {
-      collectibleType = "coin";
-    } else if (random < 0.75) {
-      collectibleType = "carrot";
-    } else {
-      collectibleType = "grass";
-    }
-    this.type = collectibleType;
-  }
-
-  draw() {
-    this.x -= 4;
-    // comment out rect to remove white boxes of items
-    // rect(this.x, this.y, this.width, this.height);
-
-    // every 6 frames, increment the counter (used to access a coin frame) while staying in the boundaries of the coinFrames array
-    if (frameCount % 6 === 0) {
-      this.counter = (this.counter + 1) % game.coinFrames.length;
-    }
-    let thisImage;
-    if (this.type === "carrot") {
-      thisImage = game.carrotImage;
-    } else if (this.type === "grass") {
-      thisImage = game.grassImage;
-    } else if (this.type === "coin") {
-      thisImage = game.coinFrames[this.counter];
-    }
-
-    image(thisImage, this.x, this.y, this.width, this.height);
   }
 
   collides(obj) {
@@ -57,6 +23,66 @@ class Collectible {
     if (this.y + this.height < obj.y || obj.y + obj.height < this.y) {
       return false;
     }
+    console.log(game);
+    game.score += this.collisionVal();
     return true;
+  }
+
+  collisionVal() {
+    return this.score;
+  }
+}
+
+class Carrot extends Collectible {
+  constructor() {
+    super(width, height);
+    this.score = 40;
+  }
+
+  draw() {
+    this.x -= 4;
+
+    image(game.carrotImage, this.x, this.y, this.width, this.height);
+  }
+}
+
+class Grass extends Collectible {
+  constructor() {
+    super(width, height);
+    this.score = 30;
+  }
+
+  draw() {
+    this.x -= 4;
+    image(game.grassImage, this.x, this.y, this.width, this.height);
+  }
+}
+
+class Shades extends Collectible {
+  constructor() {
+    super(width, height);
+    this.score = 100;
+  }
+
+  draw() {
+    this.x -= 4;
+    image(game.shadesImage, this.x, this.y, this.width, this.height);
+  }
+}
+
+class Coin extends Collectible {
+  constructor() {
+    super(width, height);
+    this.score = 20;
+  }
+
+  draw() {
+    this.x -= 4;
+    if (frameCount % 6 === 0) {
+      this.counter = (this.counter + 1) % game.coinFrames.length;
+    }
+    let thisImage = game.coinFrames[this.counter];
+
+    image(thisImage, this.x, this.y, this.width, this.height);
   }
 }

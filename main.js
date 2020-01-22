@@ -1,5 +1,3 @@
-// console.log("test");
-
 function keyPressed() {
   if (keyCode === 32) {
     // space key pressed
@@ -9,6 +7,9 @@ function keyPressed() {
 
 class Game {
   constructor() {
+    this.score = 0;
+    this.level = 1;
+    this.lives = 3;
     console.log("Game constructor");
     // create empty array for the collectibles
     this.collectibles = [];
@@ -25,6 +26,12 @@ class Game {
     this.grassImage = loadImage("assets/collectibles/grass.png");
     // load the sunglasses image:
     this.shadesImage = loadImage("assets/collectibles/shades.gif");
+    // load the heart symbol for the lives:
+    this.livesImage = loadImage("assets/collectibles/heart.png");
+    // load the cactus image:
+    this.cactusImage = loadImage("assets/obstacles/cactus.png");
+    // load the tumbleweed image:
+    this.tumbleweedImage = loadImage("assets/obstacles/tumbleweed.gif");
     // load all the coin images
     for (let i = 0; i < 5; i++) {
       this.coinFrames.push(loadImage("assets/coins/tile00" + i + ".png"));
@@ -38,20 +45,17 @@ class Game {
 
     // create a new collectible every 2 seconds:
     if (frameCount % 120 === 0) {
-      let collectible = new Collectible();
-      collectible.setup();
-      // let somethingToAddToArray
-      // let random =Math.random()
-
-      // if (random < 0.5) {
-      //let collectible  = new Collectible ();
-      //   collectible.setUp()
-      //     somethingToAddToArray  = new Collectible;
-      // } else {
-      //     somethingToAddToArray = new Obstacle()
-      // }
-
-      //   this.collectibles.push(somethingToAddToArray);
+      let collectible;
+      let random = Math.random();
+      if (random < 0.4) {
+        collectible = new Coin();
+      } else if (random < 0.65) {
+        collectible = new Carrot();
+      } else if (random < 0.85) {
+        collectible = new Grass();
+      } else {
+        collectible = new Shades();
+      }
       this.collectibles.push(collectible);
     }
 
@@ -68,12 +72,20 @@ class Game {
     );
 
     // draw the collectibles
-    this.collectibles.forEach(function(obstacle) {
-      obstacle.draw();
+    this.collectibles.forEach(function(collectible) {
+      collectible.draw();
     });
 
     // draw the player
     this.player.draw();
+
+    // define GAME OVER here:
+    // if (this.lives === 0) {
+    //   textSize(80);
+    //   text(`GAME OVER`, 180, 200);
+    //   text("Press space to restart");
+    //   noLoop();
+    // }
   }
 
   setup() {
@@ -86,6 +98,7 @@ const game = new Game();
 function preload() {
   console.log("Preload");
   game.init();
+  scoreFont = loadFont("assets/fonts/PressStart2P-vaV7.ttf");
 }
 
 function setup() {

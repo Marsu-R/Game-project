@@ -85,9 +85,14 @@ class Background {
     for (let i = 0; i < this.movingImages.length; i++) {
       this.move(this.movingImages[i]);
     }
-    textSize(18);
-    text("Level:", 10, 25);
-    text("Score:", 10, 50);
-    rect(10, 60, 40, 40);
+    textSize(20);
+    textFont(scoreFont);
+    textStyle(BOLD);
+    text(`Level: ${game.level}`, 10, 25);
+    text(`Score: ${game.score}`, 10, 50);
+    // rect(10, 60, 40, 40);
+    image(game.livesImage, 10, 50);
+    text(`x ${game.lives}`, 50, 80);
+    // text(`x ${game.potatos}`, 50, 80);
   }
 }

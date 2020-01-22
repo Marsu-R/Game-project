@@ -39,6 +39,13 @@ class Player {
     if (this.jumpCount > 0) {
       image(this.imgJumping, this.x, this.y, this.width, this.height);
     }
+    // !!! tbd - define sunglasses llama when collision with sunglasses
+    // if ((collectibleType = "shades".collides(player))) {
+    //   image(this.imgSunglasses, this.x, this.y, this.width, this.height);
+    // }
+    // if (player.collides("coin")) {
+    //   console.log("collision");
+    // }
   }
 
   jump() {
