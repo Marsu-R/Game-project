@@ -1,7 +1,9 @@
 function keyPressed() {
+  console.log(keyCode);
   if (keyCode === 32) {
     // space key pressed
     game.player.jump();
+    console.log("jump");
   }
 }
 
@@ -11,10 +13,12 @@ class Game {
     this.level = 1;
     this.lives = 3;
     console.log("Game constructor");
-    // create empty array for the collectibles
+    // create empty array for the collectibles:
     this.collectibles = [];
-    // create empty array for the coins
+    // create empty array for the coins:
     this.coinFrames = [];
+    // create empty array for the obstacles:
+    this.obstacles = [];
   }
 
   init() {
@@ -39,12 +43,12 @@ class Game {
   }
 
   draw() {
-    // draw the background, collectibles and player
+    // draw the background, collectibles, obstacles, and player
     // draw the background
     this.background.draw();
 
-    // create a new collectible every 2 seconds:
-    if (frameCount % 120 === 0) {
+    // create a new collectible every 1.5 seconds:
+    if (frameCount % 90 === 0) {
       let collectible;
       let random = Math.random();
       if (random < 0.4) {
@@ -61,6 +65,35 @@ class Game {
 
     // if the player doesn't collide with the collectibles, remove them from the collectibles array after they have left the canvas
     this.collectibles = this.collectibles.filter(
+      function(collectible) {
+        if (
+          !collectible.collides(this.player) &&
+          collectible.x + collectible.width >= 0
+        ) {
+          return true;
+        }
+      }.bind(this)
+    );
+
+    // draw the collectibles:
+    this.collectibles.forEach(function(collectible) {
+      collectible.draw();
+    });
+
+    // create a new obstacle every 2.75 seconds:
+    if (frameCount % 175 === 0) {
+      let obstacle;
+      let random = Math.random();
+      if (random < 0.5) {
+        obstacle = new Cactus();
+      } else {
+        obstacle = new Tumbleweed();
+      }
+      this.obstacles.push(obstacle);
+    }
+
+    // if the player doesn't collide with the obstacles, remove them from the obstacles array after they have left the canvas
+    this.obstacles = this.obstacles.filter(
       function(obstacle) {
         if (
           !obstacle.collides(this.player) &&
@@ -71,21 +104,25 @@ class Game {
       }.bind(this)
     );
 
-    // draw the collectibles
-    this.collectibles.forEach(function(collectible) {
-      collectible.draw();
+    // draw the obstacles:
+    this.obstacles.forEach(function(obstacle) {
+      obstacle.draw();
     });
 
     // draw the player
     this.player.draw();
 
     // define GAME OVER here:
-    // if (this.lives === 0) {
-    //   textSize(80);
-    //   text(`GAME OVER`, 180, 200);
-    //   text("Press space to restart");
-    //   noLoop();
-    // }
+    if (this.lives === 0) {
+      textSize(80);
+      text(`GAME OVER`, 160, 200);
+      textAlign(CENTER);
+
+      textSize(40);
+      text("Press space to restart", 160, 260);
+      // textAlign(CENTER);
+      noLoop();
+    }
   }
 
   setup() {

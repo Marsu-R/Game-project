@@ -1,16 +1,14 @@
 class Collectible {
   constructor() {
     // size of the item on canvas
-    this.score = 10;
     this.width = 60;
     this.height = 60;
 
     this.x = width;
     // place the items randomly across the y axis on the canvas; random() is a p5 function that accepts a range
-    this.y = random(100, height - this.height);
-    // create counter for the items
+    this.y = random(100, height - this.height - 70);
+    // create counter for the coin items
     this.counter = 0;
-    this.type = "carrot";
   }
 
   collides(obj) {
@@ -23,7 +21,7 @@ class Collectible {
     if (this.y + this.height < obj.y || obj.y + obj.height < this.y) {
       return false;
     }
-    console.log(game);
+    // console.log(game);
     game.score += this.collisionVal();
     return true;
   }
@@ -48,8 +46,10 @@ class Carrot extends Collectible {
 
 class Grass extends Collectible {
   constructor() {
-    super(width, height);
+    super();
     this.score = 30;
+    this.width = 110;
+    this.height = 110;
   }
 
   draw() {
@@ -60,8 +60,11 @@ class Grass extends Collectible {
 
 class Shades extends Collectible {
   constructor() {
-    super(width, height);
+    super(); // leave the super empty because the item needs a different size
     this.score = 100;
+    // make item bigger than the parent class:
+    this.width = 160;
+    this.height = 160;
   }
 
   draw() {
