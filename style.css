@@ -1,3 +1,6 @@
 body {
   background-color: #f9ebe0;
+  background-image: url("assets/background/desert/9\ Background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
 }

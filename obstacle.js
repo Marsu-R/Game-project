@@ -21,19 +21,18 @@ class Obstacle {
     if (this.y + this.height < obj.y || obj.y + obj.height < this.y) {
       return false;
     }
-    console.log(game);
+    // set a timeout of 250 ms each time player collides with an obstacle:
     noLoop();
     setTimeout(() => {
-      game.lives -= this.collisionVal();
-      // console.log("STUFF");
+      game.lives -= this.collisionVal(); // subtract from the lives
       textSize(40);
       text(`Ouch!`, 150, 150);
       loop();
     }, 250);
-    // rect(0, 0, 960, 540);
     return true;
   }
 
+  // return the life value defined for an obstacle
   collisionVal() {
     return this.lives;
   }
@@ -42,7 +41,7 @@ class Obstacle {
 class Cactus extends Obstacle {
   constructor() {
     super(width, height);
-    this.lives = 1;
+    this.lives = 1; // life value
   }
 
   draw() {
@@ -55,7 +54,7 @@ class Cactus extends Obstacle {
 class Tumbleweed extends Obstacle {
   constructor() {
     super(); // leave super empty because the item needs a different size
-    this.lives = 1;
+    this.lives = 1; // life value
     // make the item smaller than the parent class:
     this.width = 50;
     this.height = 50;

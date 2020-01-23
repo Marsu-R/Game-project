@@ -90,9 +90,8 @@ class Background {
     textStyle(BOLD);
     text(`Level: ${game.level}`, 10, 25);
     text(`Score: ${game.score}`, 10, 50);
-    // rect(10, 60, 40, 40);
+    text(`Highscore: ${highscore}`, 650, 25);
     image(game.livesImage, 10, 50);
     text(`x ${game.lives}`, 50, 80);
-    // text(`x ${game.potatos}`, 50, 80);
   }
 }

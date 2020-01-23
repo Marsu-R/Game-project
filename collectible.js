@@ -76,7 +76,8 @@ class Shades extends Collectible {
     // check for collision
     const isColliding = super.collides(obj);
     if (isColliding === true) {
-      game.player.sunglasses = true;
+      // if it collides
+      game.player.sunglasses = true; // the sunglasses state is true
       setTimeout(function() {
         game.player.sunglasses = false;
       }, 5000);

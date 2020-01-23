@@ -1,30 +1,44 @@
-let paused = false;
 let gameStart = false;
+let paused = false;
 let gameOver = false;
+let highscore;
+
+// check for existing highscore
+if (localStorage.getItem("highscore")) {
+  highscore = localStorage.getItem("highscore");
+} else {
+  highscore = 0; // if no existing highscore, set it to 0
+}
 
 function keyPressed() {
   console.log(keyCode);
   if (keyCode === 32) {
-    // space key pressed
+    // space key pressed --> player jumps
     game.player.jump();
-    console.log("jump");
   }
-  // toggle the gameStart variable by pressing SPACE at start
+  // toggle the gameStart variable by pressing SPACE at start ---------------
   if (gameStart === false && keyCode === 32) {
     gameStart = true;
+    game.sound.play();
   }
-  // toggle the pause/unpause by pressing ENTER
+  // -----------------------------------------------
   if (keyCode === 13) {
-    paused = !paused;
-    if (paused) {
-      noLoop();
+    if (game.gameOver) {
+      document.location.reload();
+      // preload();
+      // draw();
+      // setup();
+      // game.reset();
     } else {
-      loop();
+      paused = !paused;
+      if (paused) {
+        game.sound.pause();
+        noLoop();
+      } else {
+        loop();
+        game.sound.play();
+      }
     }
-  }
-  // toggle gameStart when pressing ENTER after game over
-  if (gameOver === true && keyCode === 13) {
-    gameStart = false;
   }
 }
 
@@ -33,6 +47,7 @@ class Game {
     this.score = 0;
     this.level = 1;
     this.lives = 3;
+    // this.gameOver = false;
     console.log("Game constructor");
     // create empty array for the collectibles:
     this.collectibles = [];
@@ -44,6 +59,9 @@ class Game {
 
   init() {
     this.background = new Background();
+    this.sound = loadSound(
+      "assets/sounds/2019-01-10_-_Land_of_8_Bits_-_Stephen_Bennett_-_FesliyanStudios.com.mp3"
+    );
     this.player = new Player();
     // load the carrot image:
     this.carrotImage = loadImage("assets/collectibles/carrot.png");
@@ -63,17 +81,34 @@ class Game {
     }
   }
 
+  // reset() {
+  //   this.score = 0;
+  //   this.level = 1;
+  //   this.lives = 3;
+  //   this.gameOver = false;
+  // }
+
   draw() {
-    // draw the background, collectibles, obstacles, and player
+    // draw the background, collectibles, obstacles, player, and scores
     // draw the background
     this.background.draw();
 
-    // Start screen:
-    // if (gameStart === false) {
-    //   textSize(30);
-    //   textAlign(CENTER);
-    //   text("Press SPACE to start", 480, 200);
-    // }
+    // if the current score is higher than the highscore, store it as new highscore
+    if (this.score > highscore) {
+      localStorage.setItem("highscore", this.score);
+      highscore = this.score;
+    }
+
+    //------------------------------------------------------------------------------
+    // Draw start screen:
+    if (gameStart === false) {
+      push();
+      textSize(30);
+      textAlign(CENTER);
+      text("Press SPACE to start", 480, 270);
+      pop();
+    }
+    //------------------------------------------------------------------------------
 
     // create a new collectible every 1.5 seconds:
     if (gameStart === true && frameCount % 90 === 0) {
@@ -154,8 +189,9 @@ class Game {
 
       textSize(40);
       text("Press ENTER to restart", 480, 260);
+      this.gameOver = true;
+      game.sound.stop();
       noLoop();
-      gameOver = true;
     }
   }
 
