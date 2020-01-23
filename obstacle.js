@@ -52,6 +52,16 @@ class Cactus extends Obstacle {
 
     image(game.cactusImage, this.x, this.y, this.width, this.height);
   }
+
+  // collision check for sound
+  collides(obj) {
+    const isColliding = super.collides(obj);
+    if (isColliding === true) {
+      // if it collides
+      game.obstacleSound.play(); // play the sound
+    }
+    return isColliding;
+  }
 }
 
 class Tumbleweed extends Obstacle {
@@ -69,5 +79,15 @@ class Tumbleweed extends Obstacle {
     this.x -= 4;
 
     image(game.tumbleweedImage, this.x, this.y, this.width, this.height);
+  }
+
+  // collision check for sound
+  collides(obj) {
+    const isColliding = super.collides(obj);
+    if (isColliding === true) {
+      // if it collides
+      game.obstacleSound.play(); // play the sound
+    }
+    return isColliding;
   }
 }

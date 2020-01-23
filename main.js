@@ -15,13 +15,14 @@ function keyPressed() {
   if (keyCode === 32) {
     // space key pressed --> player jumps
     game.player.jump();
+    game.jumpSound.play();
   }
-  // toggle the gameStart variable by pressing SPACE at start ---------------
+  // toggle the gameStart variable by pressing SPACE at start
   if (gameStart === false && keyCode === 32) {
     gameStart = true;
     game.sound.play();
   }
-  // -----------------------------------------------
+  // at game over: use ENTER to reload page
   if (keyCode === 13) {
     if (game.gameOver) {
       document.location.reload();
@@ -30,6 +31,7 @@ function keyPressed() {
       // setup();
       // game.reset();
     } else {
+      // if not game over, use ENTER to pause and unpause game
       paused = !paused;
       if (paused) {
         game.sound.pause();
@@ -59,10 +61,21 @@ class Game {
 
   init() {
     this.background = new Background();
-    this.sound = loadSound(
-      "assets/sounds/2019-01-10_-_Land_of_8_Bits_-_Stephen_Bennett_-_FesliyanStudios.com.mp3"
-    );
     this.player = new Player();
+    // load background music
+    this.sound = loadSound("assets/sounds/we-groove-song.mp3");
+    // load coin sound:
+    this.coinSound = loadSound("assets/sounds/coin-sound.mp3");
+    // load sunglasses sound:
+    this.sunglassesSound = loadSound("assets/sounds/shades-sound.mp3");
+    // load the carrot sound:
+    this.carrotSound = loadSound("assets/sounds/carrot-sound.mp3");
+    // load the grass sound:
+    this.grassSound = loadSound("assets/sounds/grass-sound.mp3");
+    // load the obstacle collision sound:
+    this.obstacleSound = loadSound("assets/sounds/obstacle-sound.mp3");
+    // load the jump sound:
+    this.jumpSound = loadSound("assets/sounds/jump-sound.mp3");
     // load the carrot image:
     this.carrotImage = loadImage("assets/collectibles/carrot.png");
     // load the grass image:
@@ -99,7 +112,6 @@ class Game {
       highscore = this.score;
     }
 
-    //------------------------------------------------------------------------------
     // Draw start screen:
     if (gameStart === false) {
       push();
@@ -108,7 +120,6 @@ class Game {
       text("Hey there, I'm Leo the llama!\nPress SPACE to start", 480, 270);
       pop();
     }
-    //------------------------------------------------------------------------------
 
     // create a new collectible every 1.5 seconds:
     if (gameStart === true && frameCount % 90 === 0) {

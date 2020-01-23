@@ -42,6 +42,16 @@ class Carrot extends Collectible {
 
     image(game.carrotImage, this.x, this.y, this.width, this.height);
   }
+
+  // collision check for sound
+  collides(obj) {
+    const isColliding = super.collides(obj);
+    if (isColliding === true) {
+      // if it collides
+      game.carrotSound.play(); // play the sound
+    }
+    return isColliding;
+  }
 }
 
 class Grass extends Collectible {
@@ -55,6 +65,17 @@ class Grass extends Collectible {
   draw() {
     this.x -= 4;
     image(game.grassImage, this.x, this.y, this.width, this.height);
+  }
+
+  // collision check for sound
+  collides(obj) {
+    // check for collision
+    const isColliding = super.collides(obj);
+    if (isColliding === true) {
+      // if it collides
+      game.grassSound.play(); // play the sound
+    }
+    return isColliding;
   }
 }
 
@@ -78,6 +99,8 @@ class Shades extends Collectible {
     if (isColliding === true) {
       // if it collides
       game.player.sunglasses = true; // the sunglasses state is true
+      game.sunglassesSound.play(); // play the sound
+      // set timeout to 5s
       setTimeout(function() {
         game.player.sunglasses = false;
       }, 5000);
@@ -106,5 +129,15 @@ class Coin extends Collectible {
     let thisImage = game.coinFrames[this.counter];
 
     image(thisImage, this.x, this.y, this.width, this.height);
+  }
+
+  // collision check for sound
+  collides(obj) {
+    const isColliding = super.collides(obj);
+    if (isColliding === true) {
+      // if it collides
+      game.coinSound.play(); // play the sound
+    }
+    return isColliding;
   }
 }
