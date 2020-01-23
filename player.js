@@ -2,13 +2,17 @@ class Player {
   constructor() {
     this.img = loadImage("assets/player/llama.gif");
     this.imgJumping = loadImage("assets/player/llama-mid-air.gif");
-    // this.imgSunglasses = loadImage("assets/player/llama-shades.gif"); // still needs to be added to draw function when needed
-    // this.imgSunglassesJumping = loadImage("assets/player/llama-shades-mid-air.gif"); // still needs to be added to draw function when needed
+    this.imgSunglasses = loadImage("assets/player/llama-shades.gif"); // still needs to be added to draw function when needed
+    this.imgSunglassesJumping = loadImage(
+      "assets/player/llama-shades-mid-air.gif"
+    ); // still needs to be added to draw function when needed
 
     // add physics for the jumps
     this.velocity = 0;
     this.gravity = 0.4;
     this.jumpCount = 0;
+
+    this.sunglasses = false;
   }
 
   setup() {
@@ -34,18 +38,25 @@ class Player {
     // comment out rect to remove white box
     // rect(this.x, this.y, this.width, this.height);
     if (this.jumpCount === 0) {
-      image(this.img, this.x, this.y, this.width, this.height);
+      if (this.sunglasses) {
+        image(this.imgSunglasses, this.x, this.y, this.width, this.height);
+      } else {
+        image(this.img, this.x, this.y, this.width, this.height);
+      }
     }
     if (this.jumpCount > 0) {
-      image(this.imgJumping, this.x, this.y, this.width, this.height);
+      if (this.sunglasses) {
+        image(
+          this.imgSunglassesJumping,
+          this.x,
+          this.y,
+          this.width,
+          this.height
+        );
+      } else {
+        image(this.imgJumping, this.x, this.y, this.width, this.height);
+      }
     }
-    // !!! tbd - define sunglasses llama when collision with sunglasses
-    // if ((collectibleType = "shades".collides(player))) {
-    //   image(this.imgSunglasses, this.x, this.y, this.width, this.height);
-    // }
-    // if (player.collides("coin")) {
-    //   console.log("collision");
-    // }
   }
 
   jump() {

@@ -25,11 +25,12 @@ class Obstacle {
     noLoop();
     setTimeout(() => {
       game.lives -= this.collisionVal();
-      console.log("STUFF");
+      // console.log("STUFF");
       textSize(40);
       text(`Ouch!`, 150, 150);
       loop();
-    }, 300);
+    }, 250);
+    // rect(0, 0, 960, 540);
     return true;
   }
 

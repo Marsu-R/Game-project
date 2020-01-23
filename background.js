@@ -1,7 +1,7 @@
 class Background {
   constructor() {
     this.movingImages = [
-      // load all layers and determine the speed
+      // load all layers and set the speed
       {
         source: loadImage("./assets/background/desert/9 Background.png"),
         x: 0,

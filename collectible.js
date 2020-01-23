@@ -71,6 +71,19 @@ class Shades extends Collectible {
     this.x -= 4;
     image(game.shadesImage, this.x, this.y, this.width, this.height);
   }
+
+  collides(obj) {
+    // check for collision
+    const isColliding = super.collides(obj);
+    if (isColliding === true) {
+      game.player.sunglasses = true;
+      setTimeout(function() {
+        game.player.sunglasses = false;
+      }, 5000);
+    }
+
+    return isColliding;
+  }
 }
 
 class Coin extends Collectible {

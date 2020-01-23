@@ -1,9 +1,30 @@
+let paused = false;
+let gameStart = false;
+let gameOver = false;
+
 function keyPressed() {
   console.log(keyCode);
   if (keyCode === 32) {
     // space key pressed
     game.player.jump();
     console.log("jump");
+  }
+  // toggle the gameStart variable by pressing SPACE at start
+  if (gameStart === false && keyCode === 32) {
+    gameStart = true;
+  }
+  // toggle the pause/unpause by pressing ENTER
+  if (keyCode === 13) {
+    paused = !paused;
+    if (paused) {
+      noLoop();
+    } else {
+      loop();
+    }
+  }
+  // toggle gameStart when pressing ENTER after game over
+  if (gameOver === true && keyCode === 13) {
+    gameStart = false;
   }
 }
 
@@ -47,8 +68,15 @@ class Game {
     // draw the background
     this.background.draw();
 
+    // Start screen:
+    // if (gameStart === false) {
+    //   textSize(30);
+    //   textAlign(CENTER);
+    //   text("Press SPACE to start", 480, 200);
+    // }
+
     // create a new collectible every 1.5 seconds:
-    if (frameCount % 90 === 0) {
+    if (gameStart === true && frameCount % 90 === 0) {
       let collectible;
       let random = Math.random();
       if (random < 0.4) {
@@ -81,7 +109,7 @@ class Game {
     });
 
     // create a new obstacle every 2.75 seconds:
-    if (frameCount % 175 === 0) {
+    if (gameStart === true && frameCount % 175 === 0) {
       let obstacle;
       let random = Math.random();
       if (random < 0.5) {
@@ -112,16 +140,22 @@ class Game {
     // draw the player
     this.player.draw();
 
+    // text for paused state
+    if (paused === true) {
+      textSize(30);
+      text("Press ENTER to resume", 160, 200);
+    }
+
     // define GAME OVER here:
     if (this.lives === 0) {
       textSize(80);
-      text(`GAME OVER`, 160, 200);
       textAlign(CENTER);
+      text(`GAME OVER`, 480, 200);
 
       textSize(40);
-      text("Press space to restart", 160, 260);
-      // textAlign(CENTER);
+      text("Press ENTER to restart", 480, 260);
       noLoop();
+      gameOver = true;
     }
   }
 
