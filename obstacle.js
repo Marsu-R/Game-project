@@ -22,13 +22,16 @@ class Obstacle {
       return false;
     }
     // set a timeout of 250 ms each time player collides with an obstacle:
+    push();
+    textSize(30);
+    fill(255, 255, 255);
+    text(`Ouch!`, this.x, this.y);
+    pop();
     noLoop();
     setTimeout(() => {
       game.lives -= this.collisionVal(); // subtract from the lives
-      textSize(40);
-      text(`Ouch!`, 150, 150);
       loop();
-    }, 250);
+    }, 200);
     return true;
   }
 

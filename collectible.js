@@ -81,6 +81,11 @@ class Shades extends Collectible {
       setTimeout(function() {
         game.player.sunglasses = false;
       }, 5000);
+      push();
+      textSize(20);
+      fill(255, 255, 255);
+      text(`Uh yeah!`, this.x, this.y);
+      pop();
     }
 
     return isColliding;
