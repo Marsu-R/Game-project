@@ -87,8 +87,8 @@ class Background {
       // speed up background and obstacles every 30 seconds
       if (frameCount % 1800 === 0) {
         this.movingImages[i].speed *= 2;
-        Cactus.x *= 2;
-        Tumbleweed.x *= 2;
+        Cactus.x *= 10;
+        Tumbleweed.x *= 10;
       }
     }
     textSize(20);
