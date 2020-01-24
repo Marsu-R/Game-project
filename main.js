@@ -109,7 +109,7 @@ class Game {
       push();
       textSize(30);
       textAlign(CENTER);
-      text("Hey there, I'm Leo the llama!\nPress SPACE to start", 480, 210);
+      text("Hey there, I'm Leo the llama!\n\nPress SPACE to start", 480, 210);
       pop();
     }
 
