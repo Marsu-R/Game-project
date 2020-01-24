@@ -3,6 +3,7 @@ class Obstacle {
     // size of the item on canvas
     this.width = 70;
     this.height = 70;
+    // this.speed =
 
     this.x = width;
     // place the items at the bottom across the y axis on the canvas;

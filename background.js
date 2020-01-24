@@ -84,6 +84,12 @@ class Background {
     // draw the background layers
     for (let i = 0; i < this.movingImages.length; i++) {
       this.move(this.movingImages[i]);
+      // speed up background and obstacles every 30 seconds
+      if (frameCount % 1800 === 0) {
+        this.movingImages[i].speed *= 2;
+        Cactus.x *= 2;
+        Tumbleweed.x *= 2;
+      }
     }
     textSize(20);
     textFont(scoreFont);
@@ -92,6 +98,8 @@ class Background {
     text(`Score: ${game.score}`, 10, 50);
     text(`Highscore: ${highscore}`, 650, 25);
     image(game.livesImage, 10, 50);
-    text(`x ${game.lives}`, 50, 80);
+    text(`${game.lives}`, 50, 80);
+    image(game.shadesSymbol, 0, 80);
+    text(`${game.shadesCount}`, 80, 110);
   }
 }

@@ -49,6 +49,7 @@ class Game {
     this.score = 0;
     this.level = 1;
     this.lives = 3;
+    this.shadesCount = 0;
     // this.gameOver = false;
     console.log("Game constructor");
     // create empty array for the collectibles:
@@ -84,6 +85,8 @@ class Game {
     this.shadesImage = loadImage("assets/collectibles/shades.gif");
     // load the heart symbol for the lives:
     this.livesImage = loadImage("assets/collectibles/heart.png");
+    // load the shades symbol:
+    this.shadesSymbol = loadImage("assets/collectibles/shades-symbol.gif");
     // load the cactus image:
     this.cactusImage = loadImage("assets/obstacles/cactus.png");
     // load the tumbleweed image:
@@ -93,13 +96,6 @@ class Game {
       this.coinFrames.push(loadImage("assets/coins/tile00" + i + ".png"));
     }
   }
-
-  // reset() {
-  //   this.score = 0;
-  //   this.level = 1;
-  //   this.lives = 3;
-  //   this.gameOver = false;
-  // }
 
   draw() {
     // draw the background, collectibles, obstacles, player, and scores
@@ -117,7 +113,7 @@ class Game {
       push();
       textSize(30);
       textAlign(CENTER);
-      text("Hey there, I'm Leo the llama!\nPress SPACE to start", 480, 270);
+      text("Hey there, I'm Leo the llama!\nPress SPACE to start", 480, 210);
       pop();
     }
 
@@ -185,6 +181,11 @@ class Game {
 
     // draw the player
     this.player.draw();
+
+    // increase level every 30 seconds:
+    if (frameCount % 1800 === 0) {
+      this.level += 1;
+    }
 
     // text for paused state
     if (paused === true) {
