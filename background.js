@@ -84,11 +84,15 @@ class Background {
     // draw the background layers
     for (let i = 0; i < this.movingImages.length; i++) {
       this.move(this.movingImages[i]);
-      // speed up background and obstacles every 30 seconds
+      // speed up background, collectibles, and obstacles every 30 seconds
       if (frameCount % 1800 === 0) {
         this.movingImages[i].speed *= 2;
-        Cactus.x *= 10;
-        Tumbleweed.x *= 10;
+        Cactus.x *= 50;
+        Tumbleweed.x *= 50;
+        Carrot.x *= 50;
+        Grass.x *= 50;
+        Shades.x *= 50;
+        Coin.x *= 50;
       }
     }
     textSize(20);

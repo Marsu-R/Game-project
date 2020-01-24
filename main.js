@@ -26,10 +26,6 @@ function keyPressed() {
   if (keyCode === 13) {
     if (game.gameOver) {
       document.location.reload();
-      // preload();
-      // draw();
-      // setup();
-      // game.reset();
     } else {
       // if not game over, use ENTER to pause and unpause game
       paused = !paused;
