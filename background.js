@@ -86,13 +86,13 @@ class Background {
       this.move(this.movingImages[i]);
       // speed up background, collectibles, and obstacles every 30 seconds
       if (frameCount % 1800 === 0) {
-        this.movingImages[i].speed *= 2;
-        Cactus.x *= 50;
-        Tumbleweed.x *= 50;
-        Carrot.x *= 50;
-        Grass.x *= 50;
-        Shades.x *= 50;
-        Coin.x *= 50;
+        this.movingImages[i].speed *= 1.8;
+        Cactus.x *= 80;
+        Tumbleweed.x *= 80;
+        Carrot.x *= 80;
+        Grass.x *= 80;
+        Shades.x *= 80;
+        Coin.x *= 80;
       }
     }
     textSize(20);

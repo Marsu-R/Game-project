@@ -101,8 +101,8 @@ class Shades extends Collectible {
       game.player.sunglasses = true; // the sunglasses state is true
       game.sunglassesSound.play(); // play the sound
       game.shadesCount += 1; // add 1 to the shades count
-      // earn 1 life for each 5 shades collected:
-      if (game.shadesCount % 5 === 0) {
+      // earn 1 life for each 7 shades collected:
+      if (game.shadesCount % 7 === 0) {
         game.lives += 1;
       }
       // set timeout to 5s

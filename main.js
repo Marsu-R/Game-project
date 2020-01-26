@@ -22,6 +22,12 @@ function keyPressed() {
     gameStart = true;
     game.sound.play();
   }
+
+  // restart music after song is over
+  if (gameStart === true && frameCount > 9780 && !game.sound.isPlaying()) {
+    game.sound.play();
+  }
+
   // at game over: use ENTER to reload page
   if (keyCode === 13) {
     if (game.gameOver) {
@@ -147,7 +153,19 @@ class Game {
     });
 
     // create a new obstacle every 2.75 seconds:
-    if (gameStart === true && frameCount % 175 === 0) {
+    if (gameStart === true && frameCount < 3600 && frameCount % 175 === 0) {
+      let obstacle;
+      let random = Math.random();
+      if (random < 0.5) {
+        obstacle = new Cactus();
+      } else {
+        obstacle = new Tumbleweed();
+      }
+      this.obstacles.push(obstacle);
+    }
+
+    // create a new obstacles every 1.75 seconds from level 3 onwards:
+    if (gameStart === true && frameCount > 3600 && frameCount % 105 === 0) {
       let obstacle;
       let random = Math.random();
       if (random < 0.5) {
