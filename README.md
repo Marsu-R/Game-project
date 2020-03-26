@@ -1,7 +1,7 @@
 Leo the Llama is a classic jump & run game.
-The goal is to collect food and other flying objects to get scores, and to avoid the obstacles on the ground.
+The goal for the llama is to collect food and other flying objects to get scores, and to avoid the obstacles on the ground (cactus and tumbleweed).
 
-The game was made using HTML, Javascript and P5 functions.
+The game was built using HTML, Javascript and P5 functions.
 For the background I used an 11-layered parralax background from itch.io:
 https://cryptogene.itch.io/parallax-desert-background
 

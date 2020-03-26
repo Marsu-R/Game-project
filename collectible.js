@@ -56,8 +56,9 @@ class Carrot extends Collectible {
 
 class Grass extends Collectible {
   constructor() {
-    super();
+    super(); // leave the super empty because the item needs a different size
     this.score = 30;
+    // Make them bigger than the parent class:
     this.width = 110;
     this.height = 110;
   }

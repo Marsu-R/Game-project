@@ -22,7 +22,7 @@ class Obstacle {
     if (this.y + this.height < obj.y || obj.y + obj.height < this.y) {
       return false;
     }
-    // set a timeout of 250 ms each time player collides with an obstacle:
+    // set a timeout of 200 ms each time player collides with an obstacle:
     push();
     textSize(30);
     fill(255, 255, 255);
